@@ -6,7 +6,7 @@ def seleccionar_bitllet():
     preu_final = 0.0
     seleccio_valida = False
     zona_valida = False
-    print("Selecciona un titol\n")
+    print("\nSelecciona un titol\n")
     print(preus)
     while seleccio_valida == False:
         try:
@@ -40,18 +40,22 @@ def seleccionar_bitllet():
 
 def comprar_bitllet(preu: float): 
     print("El preu final és: ", preu, "€")
+    diners_valids = [0.1, 0.2, 0.5, 1, 2, 5, 10, 20, 50, 100, 200, 500]
     diners_usuari = 0.0
     while diners_usuari < preu: 
         try:
-            diners_usuari = float(input("Entra els diners\n"))
-            if diners_usuari == preu:
-                print("Carregant bitllet...\nGràcies per la teva compra!")
-            elif diners_usuari < preu: 
-                print("Falten {}€".format(round(diners_usuari-preu, 2)))
-                preu -= diners_usuari
-            else: 
-                print("Carregant bitllet...\nGràcies per la teva compra!")
-                print("Aqui tens el canvi {}".format(round(diners_usuari-preu, 2)))
+            diners = float(input("Entra els diners "))
+            while diners not in diners_valids: 
+                diners = float(input("Entra una quantitat vàlida "))
+            else:
+                diners_usuari += diners
+                if diners_usuari == preu:
+                    print("Carregant bitllet...\nGràcies per la teva compra!")
+                elif diners_usuari < preu: 
+                    print("Falten {}€".format(round(preu-diners_usuari, 2)))
+                else: 
+                    print("Carregant bitllet...\nGràcies per la teva compra!")
+                    print("Aqui tens el canvi {}".format(round(abs(preu-diners_usuari), 2)))
         except ValueError: print("Entra una quantitat vàlida")  
 
 comprar_bitllet(seleccionar_bitllet())
