@@ -1,6 +1,8 @@
 # 3- Renaming files
 
 import os
+import glob
+import re
 
 def canviar_nom_fitxer(path: str):
     try:
@@ -21,5 +23,17 @@ def canviar_nom_fitxer(path: str):
     except FileNotFoundError:
         print("El sistema no pot trobar la ruta")
 
+def canviar_noms_fitxers(directory: str):
+    if(os.path.exists(directory) & os.path.isdir(directory)):
+        print("Directory exists")
+        os.chdir(directory)
+        pattern = input("Write your search string pattern: ")
+        rename = input("Write your rename string: ")
+        for file in glob.glob("*" + pattern + "*"):
+            if(file):
+                renamedFile = file.replace(pattern, rename)
+                os.rename(file,renamedFile)
+                print(f"{file} -> {renamedFile}")
+
 path = str(input("Entra el nom del directori: "))
-canviar_nom_fitxer(path)
+canviar_noms_fitxers(path)
